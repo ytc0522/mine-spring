@@ -2,9 +2,9 @@ package org.example.mine.spring.beans;
 
 public class BeanDefinition {
 
-    private String beanName;
-
     private Class<?> beanClass;
+
+
 
 
     public Class<?> getBeanClass() {
@@ -15,11 +15,4 @@ public class BeanDefinition {
         this.beanClass = beanClass;
     }
 
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String beanName) {
-        this.beanName = beanName;
-    }
 }

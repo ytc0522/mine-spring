@@ -33,13 +33,13 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         if (bean == null) {
             BeanDefinition beanDefinition = beanDefinitionMap.get(name);
             if (beanDefinition != null) {
-                return putBean(beanDefinition, null);
+                return putBean(name,beanDefinition, null);
             }
         }
         return bean;
     }
 
-    protected abstract Object putBean(BeanDefinition beanDefinition, Object... args);
+    protected abstract Object putBean(String beanName, BeanDefinition beanDefinition, Object... args);
 
 
     /**
@@ -62,7 +62,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
                     }
                 }
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new BeanException("创建Bean对象失败,beanName:" + beanDefinition.getBeanName());
+                throw new BeanException("创建Bean对象失败,beanClass:" + beanDefinition.getBeanClass());
             }
 
             return null;
