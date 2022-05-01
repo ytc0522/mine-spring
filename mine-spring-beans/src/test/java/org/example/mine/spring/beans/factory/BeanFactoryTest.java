@@ -23,7 +23,7 @@ public class BeanFactoryTest {
 
     @Test
     public void testBeanFactory() {
-        DefaultBeanFactory defaultBeanFactory = new DefaultBeanFactory();
+        DefaultListableBeanFactory defaultBeanFactory = new DefaultListableBeanFactory();
 
         // 注册
         defaultBeanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));

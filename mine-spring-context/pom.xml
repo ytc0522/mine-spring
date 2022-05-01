@@ -11,9 +11,14 @@
 
     <artifactId>mine-spring-context</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>mine-spring-beans</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
