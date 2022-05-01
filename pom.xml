@@ -9,6 +9,7 @@
         <module>mine-spring-beans</module>
         <module>mine-spring-webmvc</module>
         <module>mine-spring-aop</module>
+        <module>mine-spring-context</module>
     </modules>
 
     <groupId>org.example</groupId>
