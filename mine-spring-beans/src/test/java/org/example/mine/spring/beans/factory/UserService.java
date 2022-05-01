@@ -1,14 +1,13 @@
 package org.example.mine.spring.beans.factory;
 
-public class UserService {
+public class UserService implements IUserService{
 
-    private String name;
-
-    private Integer age;
+    private  IUserDao userDao;
 
 
-    public String sayHello() {
-        return "hello " + this.name;
+    @Override
+    public void sayHello() {
+        UserEntity user = userDao.getUser();
+        System.out.println("user = " + user);
     }
-
 }

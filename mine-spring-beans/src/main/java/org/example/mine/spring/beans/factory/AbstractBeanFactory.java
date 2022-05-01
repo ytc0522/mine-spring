@@ -1,14 +1,18 @@
 package org.example.mine.spring.beans.factory;
 
-import org.example.mine.spring.beans.BeanDefinition;
-import org.example.mine.spring.beans.exceptions.BeanException;
+import cn.hutool.core.bean.BeanUtil;
+import org.example.mine.spring.beans.BeanReference;
+import org.example.mine.spring.beans.definition.BeanDefinition;
+import org.example.mine.spring.beans.definition.BeanDefinitionRegistry;
+import org.example.mine.spring.beans.definition.BeanField;
+import org.example.mine.spring.beans.definition.BeanFields;
+import org.example.mine.spring.beans.factory.strategy.BeanCreateStrategy;
+import org.example.mine.spring.beans.factory.strategy.DefaultBeanCreateStrategy;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class AbstractBeanFactory implements BeanFactory {
+public abstract class AbstractBeanFactory implements BeanFactory, BeanDefinitionRegistry {
 
     /**
      * 用来存放Bean对象的容器
@@ -20,11 +24,23 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      */
     protected Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
-
+    /**
+     * Bean的创建策略
+     */
     private BeanCreateStrategy beanCreateStrategy = new DefaultBeanCreateStrategy();
 
     public BeanCreateStrategy getBeanCreateStrategy() {
         return beanCreateStrategy;
+    }
+
+    @Override
+    public BeanDefinition getBeanDefinition(String beanName) {
+        return beanDefinitionMap.get(beanName);
+    }
+
+    @Override
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+        beanDefinitionMap.put(beanName, beanDefinition);
     }
 
     @Override
@@ -33,40 +49,36 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         if (bean == null) {
             BeanDefinition beanDefinition = beanDefinitionMap.get(name);
             if (beanDefinition != null) {
-                return putBean(name,beanDefinition, null);
+                return putBean(name, beanDefinition, null);
             }
         }
         return bean;
     }
 
-    protected abstract Object putBean(String beanName, BeanDefinition beanDefinition, Object... args);
+    protected Object putBean(String beanName, BeanDefinition beanDefinition, Object... args) {
+        // 创建Bean对象
+        Object bean = getBeanCreateStrategy().createBean(beanDefinition, args);
+        // 填充bean字段
+        fillFields(beanDefinition, bean);
+        // 放入到容器中
+        beansMap.put(beanName, bean);
+        return bean;
+    }
 
-
-    /**
-     * 默认的Bean创建策略
-     */
-    class DefaultBeanCreateStrategy implements BeanCreateStrategy {
-
-        @Override
-        public Object createBean(BeanDefinition beanDefinition, Object[] args) throws BeanException {
-            Class<?> beanClass = beanDefinition.getBeanClass();
-
-            try {
-                if (args == null || args.length == 0) {
-                    return beanClass.getDeclaredConstructor().newInstance();
-                } else {
-                    for (Constructor<?> constructor : beanClass.getDeclaredConstructors()) {
-                        if (constructor.getParameterCount() == args.length) {
-                            return constructor.newInstance(args);
-                        }
-                    }
-                }
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new BeanException("创建Bean对象失败,beanClass:" + beanDefinition.getBeanClass());
+    private void fillFields(BeanDefinition beanDefinition, Object bean) {
+        BeanFields beanFields = beanDefinition.getBeanFields();
+        if (beanFields == null) return;
+        for (BeanField beanField : beanFields) {
+            // 判断是否是Bean对象
+            if (beanField.getValue() instanceof BeanReference) {
+                BeanReference beanReference = (BeanReference) beanField.getValue();
+                Object fieldVal = getBean(beanReference.getBeanName());
+                BeanUtil.setFieldValue(bean, beanField.getName(), fieldVal);
+            } else {
+                BeanUtil.setFieldValue(bean, beanField.getName(), beanField.getValue());
             }
-
-            return null;
         }
     }
+
 
 }
