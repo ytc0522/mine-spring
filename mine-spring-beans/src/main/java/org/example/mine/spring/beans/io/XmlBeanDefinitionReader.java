@@ -2,6 +2,7 @@ package org.example.mine.spring.beans.io;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.example.mine.spring.beans.BeanReference;
 import org.example.mine.spring.beans.definition.AbstractBeanDefinitionReader;
 import org.example.mine.spring.beans.definition.BeanDefinition;
@@ -19,6 +20,7 @@ import java.io.InputStream;
  * 作者 xinyi
  * 日期 2022/5/1 10:55 PM
  */
+@Slf4j
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 
@@ -48,9 +50,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     @Override
     public void loadBeanDefinitions(String... locations) {
         for (String location : locations) {
+            if (log.isDebugEnabled()) {
+                log.debug("正在从{}中加载Bean定义资源信息", location);
+            }
             ResourceLoader resourceLoader = getResourceLoader();
             Resource resource = resourceLoader.getResource(location);
             loadBeanDefinitions(resource);
+            if (log.isDebugEnabled()) {
+                log.debug("从{}中加载Bean定义资源信息结束", location);
+            }
         }
     }
 

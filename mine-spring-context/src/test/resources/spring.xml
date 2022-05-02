@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userService" class="org.example.mine.spring.conext.tests.UserService" scope="prototype">
+        <property name="userDao" ref="proxyUserDao"/>
+    </bean>
+
+    <bean id="proxyUserDao" class="org.example.mine.spring.conext.tests.UserDao"/>
+
+</beans>

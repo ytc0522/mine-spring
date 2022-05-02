@@ -85,6 +85,11 @@ public abstract class AbstractBeanFactory implements ConfigurableListableBeanFac
         return bean;
     }
 
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) {
+        return (T) getBean(name);
+    }
+
     protected Object putBean(String beanName, BeanDefinition beanDefinition, Object... args) {
         // 创建Bean对象
         Object bean = getBeanCreateStrategy().createBean(beanDefinition, args);
@@ -97,7 +102,7 @@ public abstract class AbstractBeanFactory implements ConfigurableListableBeanFac
 
     private void fillFields(BeanDefinition beanDefinition, Object bean) {
         BeanFields beanFields = beanDefinition.getBeanFields();
-        if (beanFields == null) return;
+        if (beanFields == null || beanFields.getBeanFields() == null) return;
         for (BeanField beanField : beanFields) {
             // 判断是否是Bean对象
             if (beanField.getValue() instanceof BeanReference) {

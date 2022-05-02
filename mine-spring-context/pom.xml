@@ -18,6 +18,11 @@
             <artifactId>mine-spring-beans</artifactId>
             <version>${parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

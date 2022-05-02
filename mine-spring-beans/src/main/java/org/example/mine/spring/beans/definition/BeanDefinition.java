@@ -17,11 +17,11 @@ public class BeanDefinition {
 
     public BeanDefinition(Class<?> beanClass, BeanFields beanFields) {
         this.beanClass = beanClass;
-        this.beanFields = beanFields;
+        this.beanFields = beanFields == null ? new BeanFields() : beanFields;
     }
 
     public BeanDefinition(Class<?> beanClass) {
-        this.beanClass = beanClass;
+        this(beanClass, null);
     }
 
 

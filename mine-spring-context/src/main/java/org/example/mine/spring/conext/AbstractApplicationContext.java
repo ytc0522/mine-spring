@@ -4,11 +4,13 @@ import org.example.mine.spring.beans.exceptions.BeanException;
 import org.example.mine.spring.beans.factory.ConfigurableListableBeanFactory;
 import org.example.mine.spring.beans.factory.DefaultListableBeanFactory;
 import org.example.mine.spring.beans.factory.processor.BeanPostProcessor;
+import org.example.mine.spring.beans.io.DefaultResourceLoader;
 import org.example.mine.spring.conext.processor.ApplicationContextAwareProcessor;
 
 import java.util.Map;
 
-public abstract class AbstractApplicationContext implements ConfigurableApplicationContext {
+
+public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
 
     private DefaultListableBeanFactory beanFactory;
 
@@ -23,6 +25,21 @@ public abstract class AbstractApplicationContext implements ConfigurableApplicat
 
         registerBeanPostProcessors(beanFactory);
 
+    }
+
+    @Override
+    public Object getBean(String name) {
+        return getBeanFactory().getBean(name);
+    }
+
+    @Override
+    public <T> Map<String, T> getBeansOfType(Class<T> type) throws BeanException {
+        return getBeansOfType(type);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) {
+        return getBeanFactory().getBean(name, requiredType);
     }
 
     /**

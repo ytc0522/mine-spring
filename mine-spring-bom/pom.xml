@@ -15,6 +15,7 @@
         <hutool.version>5.7.11</hutool.version>
         <mine-spring.version>${project.version}</mine-spring.version>
         <lombok.version>1.18.22</lombok.version>
+        <logback.version>1.2.3</logback.version>
     </properties>
 
     <dependencyManagement>
@@ -36,6 +37,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
