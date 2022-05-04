@@ -3,12 +3,10 @@ package org.example.mine.spring.beans.factory;
 import cn.hutool.core.bean.BeanUtil;
 import lombok.Getter;
 import org.example.mine.spring.beans.BeanReference;
-import org.example.mine.spring.beans.definition.BeanDefinition;
-import org.example.mine.spring.beans.definition.BeanDefinitionRegistry;
-import org.example.mine.spring.beans.definition.BeanField;
-import org.example.mine.spring.beans.definition.BeanFields;
+import org.example.mine.spring.beans.definition.*;
 import org.example.mine.spring.beans.exceptions.BeanException;
 import org.example.mine.spring.beans.factory.processor.BeanPostProcessor;
+import org.example.mine.spring.beans.factory.registry.DefaultSingletonBeanRegistry;
 import org.example.mine.spring.beans.factory.strategy.BeanCreateStrategy;
 import org.example.mine.spring.beans.factory.strategy.DefaultBeanCreateStrategy;
 
@@ -19,14 +17,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 这个抽象bean工厂类同时具备可配置、可列出bean、可自动注入的能力
+ * 这个抽象bean工厂类同时具备可配置、可列出bean、可自动注入的能力,
+ * 同时，还具备
  */
-public abstract class AbstractBeanFactory implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, AutowireCapableBeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, AutowireCapableBeanFactory {
 
-    /**
-     * 用来存放Bean对象的容器
-     */
-    protected Map<String, Object> beansMap = new ConcurrentHashMap<>();
 
     /**
      * 用来存放BeanDefinition定义的容器
@@ -69,17 +64,17 @@ public abstract class AbstractBeanFactory implements ConfigurableListableBeanFac
     }
 
     @Override
-    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
-        beanDefinitionMap.put(beanName, beanDefinition);
+    public void registerBeanDefinition(BeanDefinitionHolder definitionHolder) {
+        beanDefinitionMap.put(definitionHolder.getBeanName(), definitionHolder.getBeanDefinition());
     }
 
     @Override
     public Object getBean(String name) {
-        Object bean = beansMap.get(name);
+        Object bean = getSingleton(name);
         if (bean == null) {
             BeanDefinition beanDefinition = beanDefinitionMap.get(name);
             if (beanDefinition != null) {
-                return putBean(name, beanDefinition, null);
+                return createBean(new BeanDefinitionHolder(name, beanDefinition), null);
             }
         }
         return bean;
@@ -90,17 +85,9 @@ public abstract class AbstractBeanFactory implements ConfigurableListableBeanFac
         return (T) getBean(name);
     }
 
-    protected Object putBean(String beanName, BeanDefinition beanDefinition, Object... args) {
-        // 创建Bean对象
-        Object bean = getBeanCreateStrategy().createBean(beanDefinition, args);
-        // 填充bean字段
-        fillFields(beanDefinition, bean);
-        // 放入到容器中
-        beansMap.put(beanName, bean);
-        return bean;
-    }
+    protected abstract Object createBean(BeanDefinitionHolder definitionHolder, Object... args);
 
-    private void fillFields(BeanDefinition beanDefinition, Object bean) {
+    protected void fillFields(BeanDefinition beanDefinition, Object bean) {
         BeanFields beanFields = beanDefinition.getBeanFields();
         if (beanFields == null || beanFields.getBeanFields() == null) return;
         for (BeanField beanField : beanFields) {

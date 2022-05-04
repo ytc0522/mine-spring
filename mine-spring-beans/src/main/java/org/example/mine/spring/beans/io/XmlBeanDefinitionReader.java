@@ -4,10 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mine.spring.beans.BeanReference;
-import org.example.mine.spring.beans.definition.AbstractBeanDefinitionReader;
-import org.example.mine.spring.beans.definition.BeanDefinition;
-import org.example.mine.spring.beans.definition.BeanDefinitionRegistry;
-import org.example.mine.spring.beans.definition.BeanField;
+import org.example.mine.spring.beans.definition.*;
 import org.example.mine.spring.beans.exceptions.BeanException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -118,7 +115,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 throw new BeanException("Duplicate beanName[" + beanName + "] is not allowed");
             }
             // 注册 BeanDefinition
-            getRegistry().registerBeanDefinition(beanName, beanDefinition);
+            getRegistry().registerBeanDefinition(new BeanDefinitionHolder(beanName, beanDefinition));
         }
     }
 }
