@@ -9,6 +9,7 @@ import org.example.mine.spring.beans.factory.processor.BeanPostProcessor;
 import org.example.mine.spring.beans.factory.registry.DefaultSingletonBeanRegistry;
 import org.example.mine.spring.beans.factory.strategy.BeanCreateStrategy;
 import org.example.mine.spring.beans.factory.strategy.DefaultBeanCreateStrategy;
+import org.example.mine.spring.beans.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +40,8 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     @Getter
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
+    private final ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
     public BeanDefinition getBeanDefinition(String beanName) {
@@ -87,7 +90,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     protected abstract Object createBean(BeanDefinitionHolder definitionHolder, Object... args);
 
-    protected void fillFields(BeanDefinition beanDefinition, Object bean) {
+    protected void applyPropertyValue(BeanDefinition beanDefinition, Object bean) {
         BeanFields beanFields = beanDefinition.getBeanFields();
         if (beanFields == null || beanFields.getBeanFields() == null) return;
         for (BeanField beanField : beanFields) {
@@ -109,6 +112,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public Object applyBeanPostProcessorBeforeBeanInit(Object existingBean, String beanName) {
+
+        List<BeanPostProcessor> beanPostProcessors = getBeanPostProcessors();
+
+
         return null;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return beanClassLoader;
     }
 }

@@ -2,6 +2,9 @@ package org.example.mine.spring.beans.factory.processor;
 
 import org.example.mine.spring.beans.exceptions.BeanException;
 
+/**
+ *
+ */
 public interface BeanPostProcessor {
 
 
