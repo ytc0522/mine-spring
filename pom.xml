@@ -12,6 +12,8 @@
         <module>mine-spring-context</module>
         <module>mine-spring-boot-parent</module>
         <module>mini-spring-test</module>
+        <module>mine-spring-boot-test</module>
+        <module>spring-boot-examples-parent</module>
     </modules>
 
     <groupId>org.example</groupId>
