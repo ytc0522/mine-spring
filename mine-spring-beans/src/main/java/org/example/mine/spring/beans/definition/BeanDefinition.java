@@ -14,6 +14,8 @@ public class BeanDefinition {
 
     private String destroyMethodName;
 
+    private String scope;
+
 
     public BeanDefinition(Class<?> beanClass, BeanFields beanFields) {
         this.beanClass = beanClass;
@@ -26,14 +28,14 @@ public class BeanDefinition {
 
 
     public void setInitMethodName(String initMethod) {
-
+        this.initMethodName = initMethod;
     }
 
     public void setDestroyMethodName(String destroyMethodName) {
-
+        this.destroyMethodName = destroyMethodName;
     }
 
     public void setScope(String beanScope) {
-
+        this.scope = beanScope;
     }
 }
