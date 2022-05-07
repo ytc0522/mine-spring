@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext.annotation;
+package org.example.mine.spring.context.annotation;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;

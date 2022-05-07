@@ -1,7 +1,7 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 
-import org.example.mine.spring.conext.tests.UserService;
+import org.example.mine.spring.context.tests.UserService;
 import org.junit.Test;
 
 public class ClassPathXmlApplicationContextTest {

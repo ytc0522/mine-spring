@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 import org.example.mine.spring.beans.exceptions.BeanException;
 import org.example.mine.spring.beans.factory.DefaultListableBeanFactory;

@@ -1,5 +1,5 @@
 import cn.hutool.core.lang.Assert;
-import org.example.mine.spring.conext.AnnotationConfigApplicationContext;
+import org.example.mine.spring.context.AnnotationConfigApplicationContext;
 import org.example.mini.spring.service.IUserService;
 import org.junit.Test;
 

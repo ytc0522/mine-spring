@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext.annotation;
+package org.example.mine.spring.context.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Component
-public @interface Service {
+public @interface Controller {
 
     String value() default "";
 

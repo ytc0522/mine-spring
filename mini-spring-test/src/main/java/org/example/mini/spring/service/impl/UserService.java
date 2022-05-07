@@ -1,7 +1,7 @@
 package org.example.mini.spring.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.mine.spring.conext.annotation.Service;
+import org.example.mine.spring.context.annotation.Service;
 import org.example.mini.spring.service.IUserService;
 
 /**

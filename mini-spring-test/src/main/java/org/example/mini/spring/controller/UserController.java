@@ -1,6 +1,6 @@
 package org.example.mini.spring.controller;
 
-import org.example.mine.spring.conext.annotation.Controller;
+import org.example.mine.spring.context.annotation.Controller;
 
 /**
  * 作者 xinyi

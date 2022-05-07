@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.mine.spring.beans.factory.DefaultListableBeanFactory;

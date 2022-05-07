@@ -1,9 +1,9 @@
-package org.example.mine.spring.conext.processor;
+package org.example.mine.spring.context.processor;
 
 import org.example.mine.spring.beans.exceptions.BeanException;
 import org.example.mine.spring.beans.factory.processor.BeanPostProcessor;
-import org.example.mine.spring.conext.ApplicationContext;
-import org.example.mine.spring.conext.aware.ApplicationContextAware;
+import org.example.mine.spring.context.ApplicationContext;
+import org.example.mine.spring.context.aware.ApplicationContextAware;
 
 public class ApplicationContextAwareProcessor implements BeanPostProcessor {
 

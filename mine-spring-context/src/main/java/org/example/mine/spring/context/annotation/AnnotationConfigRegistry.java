@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext.annotation;
+package org.example.mine.spring.context.annotation;
 
 public interface AnnotationConfigRegistry {
 

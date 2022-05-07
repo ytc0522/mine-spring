@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext.tests;
+package org.example.mine.spring.context.tests;
 
 public class UserService implements IUserService {
 

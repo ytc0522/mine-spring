@@ -1,4 +1,4 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 import junit.framework.TestCase;
 

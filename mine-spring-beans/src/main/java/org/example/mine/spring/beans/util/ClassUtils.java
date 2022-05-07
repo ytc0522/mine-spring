@@ -1,6 +1,12 @@
 package org.example.mine.spring.beans.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClassUtils {
+
+    private static final Map<String, Class<?>> primitiveTypeNameMap = new HashMap(32);
+
 
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
@@ -33,5 +39,15 @@ public class ClassUtils {
     public static boolean isCglibProxyClassName(String className) {
         return (className != null && className.contains("$$"));
     }
+
+    public static boolean isPresent(String className) {
+        try {
+            Thread.currentThread().getContextClassLoader().loadClass(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
 
 }

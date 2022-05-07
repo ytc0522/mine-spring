@@ -1,11 +1,11 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 import cn.hutool.core.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mine.spring.beans.definition.BeanDefinitionHolder;
 import org.example.mine.spring.beans.factory.DefaultListableBeanFactory;
-import org.example.mine.spring.conext.annotation.AnnotationConfigRegistry;
-import org.example.mine.spring.conext.annotation.BeanDefinitionScanner;
+import org.example.mine.spring.context.annotation.AnnotationConfigRegistry;
+import org.example.mine.spring.context.annotation.BeanDefinitionScanner;
 
 import java.util.Set;
 

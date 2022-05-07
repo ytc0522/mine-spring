@@ -1,11 +1,11 @@
-package org.example.mine.spring.conext;
+package org.example.mine.spring.context;
 
 import org.example.mine.spring.beans.exceptions.BeanException;
 import org.example.mine.spring.beans.factory.ConfigurableListableBeanFactory;
 import org.example.mine.spring.beans.factory.DefaultListableBeanFactory;
 import org.example.mine.spring.beans.factory.processor.BeanPostProcessor;
 import org.example.mine.spring.beans.io.DefaultResourceLoader;
-import org.example.mine.spring.conext.processor.ApplicationContextAwareProcessor;
+import org.example.mine.spring.context.processor.ApplicationContextAwareProcessor;
 
 import java.util.Map;
 

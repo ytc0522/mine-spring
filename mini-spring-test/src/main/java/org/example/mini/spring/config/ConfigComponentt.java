@@ -1,6 +1,6 @@
 package org.example.mini.spring.config;
 
-import org.example.mine.spring.conext.annotation.Component;
+import org.example.mine.spring.context.annotation.Component;
 
 /**
  * 作者 xinyi
