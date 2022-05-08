@@ -14,7 +14,6 @@
     <modules>
         <module>mine-spring-boot-dependencies</module>
         <module>mine-spring-boot-autoconfigure</module>
-        <module>mie-spring-boot-starters</module>
         <module>mine-spring-boot</module>
     </modules>
 

@@ -14,6 +14,7 @@
         <module>mini-spring-test</module>
         <module>mine-spring-boot-test</module>
         <module>spring-boot-examples-parent</module>
+        <module>mine-spring-web</module>
     </modules>
 
     <groupId>org.example</groupId>

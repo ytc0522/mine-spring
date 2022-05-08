@@ -13,9 +13,15 @@
         <maven.compiler.target>8</maven.compiler.target>
         <junit.version>4.13.2</junit.version>
         <hutool.version>5.7.11</hutool.version>
-        <mine-spring.version>${project.version}</mine-spring.version>
         <lombok.version>1.18.22</lombok.version>
         <logback.version>1.2.3</logback.version>
+        <javax.servlet.version>4.0.1</javax.servlet.version>
+        <!--mine-spring-->
+        <mine-spring.version>${project.version}</mine-spring.version>
+        <mine-spring-context.version>1.0-SNAPSHOT</mine-spring-context.version>
+        <mine-spring-beans.version>1.0-SNAPSHOT</mine-spring-beans.version>
+        <mine-spring-web.version>1.0-SNAPSHOT</mine-spring-web.version>
+        <mine-spring-webmvc.version>1.0-SNAPSHOT</mine-spring-webmvc.version>
     </properties>
 
     <dependencyManagement>
@@ -43,6 +49,34 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
+            </dependency>
+
+            <!--mine-spring-->
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>mine-spring-beans</artifactId>
+                <version>${mine-spring-beans.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>mine-spring-context</artifactId>
+                <version>${mine-spring-context.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>mine-spring-web</artifactId>
+                <version>${mine-spring-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>mine-spring-webmvc</artifactId>
+                <version>${mine-spring-webmvc.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
