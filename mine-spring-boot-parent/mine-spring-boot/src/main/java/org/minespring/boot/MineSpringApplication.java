@@ -1,6 +1,9 @@
 package org.minespring.boot;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.example.mine.spring.beans.exceptions.BeanException;
+import org.example.mine.spring.beans.io.SpringFactoriesLoader;
 import org.example.mine.spring.context.ConfigurableApplicationContext;
 
 import java.lang.reflect.InvocationTargetException;
@@ -12,8 +15,10 @@ import java.util.Set;
  * 作者 xinyi
  * 日期 2022/5/7
  */
+@Slf4j
 public class MineSpringApplication {
 
+    @Getter
     private final Set<Class<?>> primarySources;
 
     private final WebApplicationType webApplicationType;
@@ -52,8 +57,27 @@ public class MineSpringApplication {
         // 创建context
         context = createApplicationContext();
 
+        // 加载spring.factories 并实例化
+        SpringFactoriesLoader.loadFactories();
+
+        // 准备刷新Context
+        prepareContext(context);
+
+        // 刷新Context
+        refreshContext(context);
 
         return context;
+    }
+
+    private void prepareContext(ConfigurableApplicationContext context) {
+        Set<Class<?>> primarySources = getPrimarySources();
+
+
+    }
+
+
+    private void refreshContext(ConfigurableApplicationContext context) {
+        context.refresh();
     }
 
     protected ConfigurableApplicationContext createApplicationContext() {
@@ -77,6 +101,16 @@ public class MineSpringApplication {
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new BeanException("创建 ConfigurableApplicationContext 异常", e);
         }
+    }
+
+    /**
+     * @param type           要实例化的类型
+     * @param parameterTypes 构造方法的参数类型
+     * @param args           构造方法的参数
+     * @param names          具体的要实例化的全类名
+     */
+    private void createSpringFactoriesInstances(Class<?> type, Class<?>[] parameterTypes, Object[] args, Set<String> names) {
+
     }
 
 
